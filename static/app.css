@@ -3,10 +3,12 @@
     font-size: 14px;
     overflow: hidden;
 }
+
 body {
     background-color: black;
     overflow: hidden;
 }
+
 .content-block {
     display: flex;
     flex-flow: row wrap;
@@ -19,10 +21,7 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-image: url(/static/assets/dragon-background-by-upklyak.jpg);
-    position: relative;
-
-    
-
+    position: relative;   
 
 }
 
@@ -35,6 +34,7 @@ ul {
     background-color: rgba(0, 0, 0, 0.26);    
     border: 10px solid transparent;
     border-image: url(/static/assets/navbar.png) 30% round;
+    height: 4.5%;
     
   }
     
@@ -61,6 +61,7 @@ ul {
     border-radius: 40%;
     width: 5rem;
     font-family: Helvetica;
+    z-index: -1;
 
   }
   
@@ -101,13 +102,110 @@ ul {
     color: rgb(4, 184, 184);
     font-family: Helvetica;
     width: 350px;
-
-    
     
 }
 
 @media only screen and (max-width: 370px) {
+    ul {width: 300px; height: 100px;}
+    .greeting {font-size: 14px; width: 50%; margin-left: 22.5%; margin-top: 22.5%;}
     .welcome-div {width: 90%; display: block;}
     
+}
+
+.error-message {
+  font-size: 16px;
+  color: red;
+}
+
+.signup-div {
+  font-size: 18px;
+  font-family: Helvetica;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 100px;
+  background-image: url(/static/assets/navbar.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;  
+  height: 100px;
+  width: 200%;
+  margin-left: -100%;
+}
+
+.submit-button {
+  background: url(/static/assets/submit_button.png);
+  border: 0;
+  opacity: 0.8;
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  
+  
+}
+.submit-button:hover {
+  opacity: 1.0;
+}
+
+.background {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; 
+
+}
+
+.scroll-div {
+  background-image: url(/static/assets/even_longer_scroll.png);
+  margin-top: -1%;
+  height: 100vh;
+  width: 100vw;
+
+}
+
+.character_form {
+ 
+  font-size: 16px;
+  font-family: Helvetica;
+  color: rgb(62, 25, 104);
+  margin-top: 8.5%;
+  margin-left: 28%;
+
+}
+
+.div {
+  position: absolute;
+  right: 2%;
+  top: 7%;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+}
+
+.h1 {
+  position: absolute;
+  right: 1%;
+  top: 17%;
+  padding: 10px;
+  width: 100px;
+  height: 50px;
+  font-size: 24px;
+  color: rgb(4, 184, 184);
+  font-family: Helvetica;
+
+}
+
+.newDiv {
+
+  margin-left: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  width: 150px;
+  text-align: right;
+}
+
+.jj {
+  border: 1px solid black
 }
 

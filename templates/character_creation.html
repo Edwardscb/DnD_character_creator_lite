@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}New Character{% endblock %}
+
+{% block content %}
+<div class="scroll-div background">
+    <form class="character_form">
+        <!-- hides csrf token  -->
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <!-- shows error messages if there are any  -->
+    {% for error in field.errors %}
+    {% endfor %}
+    <!-- renders form with character name, gender, race, and class  -->
+    {{field.label}} {{field}} 
+    {% endfor %}
+
+    <div id="stats"></div>
+    <div id="hit-dice" class="hit-dice">Hitpoints: <select  class="default-option" id="default-option"><option>Select Class</option></select></div>
+
+
+
+        
+    </form>
+
+</div>
+{% endblock %}

@@ -9,14 +9,28 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="content-block">
-    <ul>
-        <li><a class="active" href="#home">Home</a></li>
+    <ul class="navbar-list" id="navbar-list">
+        
+        <li><a href="/">Home</a></li>
         <li><a href="#news">News</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li style="float:right"><a href="#about">About</a></li>
-      </ul>
+        <li><a href='/new_character'>Create</a></li>
+        {% if g.user %}
+        <li style="float:right"><a href="/logout">Logout</a></li>
+        {% else %}
+        <li style="float:right"><a href="/signup">Signup</a></li>
+        <li style="float:right"><a href="/login">Login</a></li>
+        {% endif %}
+    </ul>
+    {% if g.user %}
+    <div class='div background' style="background-image:url({{g.user.image_url}})"></div>
+    <h1 class="h1">{{g.user.username}}</h1>
+    {% endif %}
     {% block content %}
+
+
     {% endblock %}
-    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/app.js"></script>
 </body>
 </html> 
