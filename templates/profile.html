@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="large-textbox-div background">
+
+
+<form method="POST" class="profile-page">
+
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    {% for error in field.errors %}
+    <span class="error_msg">{{error}}</span>
+    {% endfor %}
+    <div class='{{field.name}}'}}>{{field.label}} {{field}}</div>
+    {% endfor %}
+    <div class="gold_border"><br><p>Your Characters:</p>{% for character in user_chars %}<a class="link-text" href="/characters/{{character.id}}">{{character.character_name}}{% endfor %}</a></div>
+    <button type="submit" id="submit-button" class="profile-submit-button submit-button"></button>
+</form>
+    <!-- <div id="hit-dice" class="hit-dice">Hitpoints: <select  class="default-option" id="default-option"><option>Select Class</option></select></div> -->
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="search-textbox-div">
+
+        <br><br><br><p>Users: <br><br>{% for user in users %}<a href='/users/{{user.id}}'>{{user.username}}</a>{% endfor %}</p>_____
+
+        <p>Characters: <br><br>{% for character in characters %}<a href='/characters/{{character.id}}'>{{character.character_name}}</a>{% endfor %}</p>_____
+
+</div>
+{% endblock %}

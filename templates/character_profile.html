@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}New Character{% endblock %}
+
+{% block content %}
+<div class="scroll-div background">
+    <fieldset disabled="disabled">
+    <form method="POST" class="character_form1">
+        
+
+
+    <!-- hides csrf token  -->
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+
+    <!-- shows error messages if there are any  -->
+    {% for error in field.errors %}
+    {% endfor %}
+    {% if field.name == 'character_name' %}{{field}} 
+    {% else %}
+
+    <!-- renders form with character name, gender, race, and class  -->
+    {{field.label(class_=field.name)}} {{field}}
+    {% endif %}
+    {% endfor %}
+    
+
+
+<!-- renders the stats drop-down menus for str, dex, con, int, wis, and cha  -->
+
+        {{form.hidden_tag()}}
+        {% for field in stat_form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        {% endfor %}
+        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        {% endfor %}
+
+
+
+    <!-- renders the equipment drop-down menus for weapons and armor  -->
+
+        {{form.hidden_tag()}}
+        {% for field in equipment_form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        {% endfor %}
+        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        {% endfor %}
+
+
+
+
+    <!-- renders the items drop-down menus  -->
+
+        {{form.hidden_tag()}}
+        {% for field in item_form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        {% endfor %}
+        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        {% endfor %}
+    
+        <div class="strength-div background"></div>
+        <div class="dexterity-div background"></div>
+        <div class="constitution-div background"></div>
+        <div class="intelligence-div background"></div>
+        <div class="wisdom-div background"></div>
+        <div class="charisma-div background"></div>
+        <div class="misc1-div background"></div>
+        <div class="misc2-div background"></div>
+        <div class="misc3-div background"></div>
+        <div class="misc4-div background"></div>
+        <div class="misc5-div background"></div>
+        <div class="misc6-div background"></div>
+
+
+       
+
+  
+
+        
+</form>
+</fieldset>
+ 
+
+</div>
+{% endblock %}

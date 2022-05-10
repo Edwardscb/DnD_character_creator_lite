@@ -59,6 +59,7 @@ class Character(db.Model):
     gender = db.Column(db.Text)
     race = db.Column(db.Text)
     character_class = db.Column(db.Text)
+    background = db.Column(db.Text)
     stats = db.ForeignKey('stats.id')
     equipment = db.ForeignKey('equipments.id')
     items = db.ForeignKey('items.id')

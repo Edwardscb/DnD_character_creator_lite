@@ -10,11 +10,12 @@ body {
 }
 
 .content-block {
+  
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     overflow: hidden;
-    background-size: 100% 100%;
+    background-size: 101% 101%;
     height: 100vh;
     width: 100vw;
     /* margin: 3px auto 0; */
@@ -22,6 +23,7 @@ body {
     background-repeat: no-repeat;
     background-image: url(/static/assets/dragon-background-by-upklyak.jpg);
     position: relative;   
+    z-index: -1;
 
 }
 
@@ -35,7 +37,7 @@ ul {
     border: 10px solid transparent;
     border-image: url(/static/assets/navbar.png) 30% round;
     height: 4.5%;
-    
+    z-index: 25;
   }
     
   li {
@@ -117,6 +119,10 @@ ul {
   color: red;
 }
 
+.hidden {
+  display: None;
+}
+
 .signup-div {
   font-size: 18px;
   font-family: Helvetica;
@@ -133,6 +139,59 @@ ul {
   margin-left: -50%;
 }
 
+.search-form {
+  position: absolute;
+  margin-left: 50%;
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 10;
+  border: 1px solid black;
+}
+
+.search-bar {
+  width: 15%;
+  list-style-type: none;
+  margin-left: 40%;
+  margin-top: 3%;
+  padding: 2px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.25);    
+  border: 10px solid transparent;
+  border-image: url(/static/assets/navbar.png) 35% round;
+  height: 2%;
+  font-size: 18px;
+  color:rgb(7, 255, 7);
+  z-index: 100;
+
+}
+
+
+input::placeholder {
+  text-align: center;
+  color: white;
+}
+
+.search-button {
+  position: absolute;
+  background: url(/static/assets/search_button.png);
+  border: 0;
+  opacity: 0.8;
+  height: 5%;
+  width: 5%;
+  margin-top: 3%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 100;
+
+ }
+ 
+.search-button:hover {
+  opacity: 1.0;
+}
+
 .submit-button {
   background: url(/static/assets/submit_button.png);
   border: 0;
@@ -142,9 +201,8 @@ ul {
   background-size: contain;
   background-repeat: no-repeat;
 
-  
-  
-}
+ }
+
 .submit-button:hover {
   opacity: 1.0;
 }
@@ -166,13 +224,15 @@ h1 {
 font-family: Arial;
 }
 
+
+
+
 .scroll-div {
   background-image: url(/static/assets/even_longer_scroll.png);
   margin-top: -1%;
   height: 100vh;
   width: 100vw;
   opacity: 0.95;
-
 }
 
 .div {
@@ -208,4 +268,119 @@ font-family: Arial;
 
 .jj {
   border: 1px solid black
+}
+
+.large-textbox-div {
+
+  background-image: url(/static/assets/large_textbox.png);
+  margin-top: -2%;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.95;
+
+  z-index: -1;
+}
+
+
+.profile-page {
+
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(18, 118px);
+  grid-template-rows: repeat(10, 100px);
+  z-index: -1;
+
+}
+
+  .gold_border {
+    grid-column-start: 14;
+    grid-row-start: 6;
+    background-image: url(/static/assets/silver_border_with_infill.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 370px;
+    width: 370px;
+    font-size: 24px;
+    font-family: Helvetica;
+    color:rgb(4, 184, 184);
+  }
+
+.email {
+
+  grid-column-start: 8;
+  grid-column-end: 10;
+  grid-row: 3;
+  font-size: 24px;
+  color:rgb(4, 184, 184);
+
+}
+
+#email {
+  font-size: 20px;
+}
+
+.image_url {
+  grid-column-start: 8;
+  grid-column-end: 10;
+  grid-row: 4;
+  font-size: 24px;
+  color:rgb(4, 184, 184);
+}
+
+#image_url {
+  font-size: 20px;
+}
+
+.password {
+  grid-column-start: 8;
+  grid-column-end: 10;
+  grid-row: 5;
+  font-size: 24px;
+  color:rgb(4, 184, 184);
+}
+
+#password {
+  font-size: 20px;
+}
+
+.profile-submit-button {
+  margin: 0;
+  padding: 0;
+  grid-column-start: 8;
+  grid-column-end: 11;
+  grid-row: 6;
+}
+
+.link-text {
+  color:rgb(4, 184, 184);
+}
+
+.search-textbox-div {
+  text-align: center;
+  font-size: 24px;
+  font-family: Helvetica;
+  color:rgb(4, 184, 184);
+  background-image: url(/static/assets/silver_border_with_infill.png);
+  margin-top: -0.5%;
+  height: 90vh;
+  width: 95vw;
+  opacity: 0.95;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 45%;
+
+}
+
+.countainer {
+  display: grid;
+  grid-template-columns: repeat(12, 100px);
+  grid-template-rows: repeat(10, 100px);
+  
+}
+
+fieldset {
+  z-index: -1;
+  height: 90%;
+  border: 0;
 }

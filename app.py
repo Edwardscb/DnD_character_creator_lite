@@ -3,7 +3,7 @@ import requests
 from flask import Flask, render_template, session, g, request, flash, redirect
 from models import User, db, connect_db, Stat, Character, Equipment, Item, Stat
 from sqlalchemy.exc import IntegrityError
-from forms import NewUserForm, LoginForm, CharacterCreationForm, BaseStatForm, ItemsForm, EquipmentForm
+from forms import NewUserForm, LoginForm, CharacterCreationForm, BaseStatForm, ItemsForm, EquipmentForm, EditProfileForm
 
 app = Flask(__name__)
 
@@ -79,7 +79,7 @@ def sign_up():
         try:
             user = User.signup(
                                                
-                username = form.username.data,
+                username = form.username.data.lower(),
                 password = form.password.data,
                 email = form.email.data,
                 image_url = form.image_url.data or User.image_url.default.arg,
@@ -102,13 +102,13 @@ def sign_up():
         return render_template('signup.html', form=form)
 
 # these serve as a place to store the data once requested from the dnd5e api        
-dnd_classes = []
-dnd_races = []
+dnd_classes = [('None', 'None')]
+dnd_races = [('None', 'None')]
 dnd_stats = []
-dnd_weapons = []
-dnd_items = []
-dnd_armor = []
-dnd_backgrounds = [('Acolyte', 'Acolyte'), ('Charlatan', 'Charlatan'), ('Criminal', 'Criminal'), ('Entertainer', 'Entertainer'), ('Folk Hero', 'Folk Hero'), 
+dnd_weapons = [('None', 'None')]
+dnd_items = [('None', 'None')]
+dnd_armor = [('None', 'None')]
+dnd_backgrounds = [('None', 'None'), ('Acolyte', 'Acolyte'), ('Charlatan', 'Charlatan'), ('Criminal', 'Criminal'), ('Entertainer', 'Entertainer'), ('Folk Hero', 'Folk Hero'), 
 ('Guild Artisan', 'Guild Artisan'), ('Hermit', 'Hermit'), ('Noble', 'Noble'), ('Outlander', 'Outlander'), ('Sage', 'Sage'), ('Sailor', 'Sailor'), ('Soldier', 'Soldier'),
 ('Urchin', 'Urchin')]
 gender = [('Male', 'Male'), ('Female', 'Female'), ('Yes', 'Yes'), ('No', 'No'), ('Maybe?', 'Maybe?'), ('None', 'None')]
@@ -215,10 +215,11 @@ def create_new_character():
 
         if form.validate_on_submit():
             new_char = Character(
-                character_name = form.character_name.data,
+                character_name = form.character_name.data.lower(),
                 gender = form.gender.data,
                 race = form.race.data,
-                character_class = form.character_class.data
+                character_class = form.character_class.data,
+                background = form.background.data
                 )
 
             db.session.add(new_char)
@@ -268,16 +269,146 @@ def create_new_character():
 
 @app.route('/logout')
 def logout():
+    """calls the do_logout function that checks if a user is logged in, and if so, logs them out"""
     do_logout()
     flash('Logout successful! We look forward to your next visit!')
     return redirect('/')
         
+@app.route('/users/<int:user_id>', methods=["GET", "POST"])
+def profile_page(user_id):
+    """shows a user their profile page if they are logged in"""
+    user = User.query.get(user_id)
+    user_chars = user.my_characters
+    if g.user.id == user_id:
+        form = EditProfileForm(obj=g.user)
+        if form.validate_on_submit():            
+            user.password = form.email.data,
+            user.email = form.email.data,
+            user.image_url = form.image_url.data,
+            db.session.commit()
+            return redirect(f"/users/{g.user.id}")
+        else:
+            return render_template('profile.html', user=user, form=form, user_chars=user_chars)
+    else:
+        flash("Please login to view the user profile page")
+        return render_template('/login')
 
-# @app.route('/users/<int:user_id>')
+@app.route('/search')
+def search_function():
+    """User can search for other users by username OR search for characters by character name"""
 
-# @app.route('/users/<int:user_id>/new_character')
+    search = request.args.get('q').lower()
 
-# @app.route('/user/<int:user_id>/characters')
+    if not search:
+        users = User.query.all()
+        characters = Character.query.all()
+    else:
+        users = User.query.filter(User.username.like(f"%{search}%")).all()
+        characters = Character.query.filter(Character.character_name.like(f"%{search}%")).all()
+    
+    return render_template('search_results.html', users=users, characters=characters)
 
-# @app.route('/user/<int:user_id>/characters/<int:character_id>')
+
+
+@app.route('/characters/<int:character_id>', methods=["GET", "POST"])
+def character_profile(character_id):
+    """this is the route for users to view characters"""
+    character = Character.query.get_or_404(character_id)
+    character_stats = character.character_stats[0]
+    character_equipment = character.character_equipment[0]
+    character_items = character.character_items[0]
+
+    form = CharacterCreationForm(obj=character)
+    stat_form = BaseStatForm(obj=character_stats)
+    equipment_form = EquipmentForm(obj=character_equipment)
+    item_form = ItemsForm(obj=character_items)
+
+    form.gender.choices = gender
+    get_races()
+    get_classes()
+    get_stats()
+    get_equipment()
+    get_armor()
+    get_items()
+
+    form.race.choices = dnd_races
+    form.character_class.choices = dnd_classes
+    form.background.choices = dnd_backgrounds
+
+    stat_form.strength.choices = dnd_stats
+    stat_form.dexterity.choices = dnd_stats
+    stat_form.constitution.choices = dnd_stats
+    stat_form.intelligence.choices = dnd_stats
+    stat_form.wisdom.choices = dnd_stats
+    stat_form.charisma.choices = dnd_stats
+
+    equipment_form.weapon1.choices = dnd_weapons
+    equipment_form.weapon2.choices = dnd_weapons
+    equipment_form.weapon3.choices = dnd_weapons
+    equipment_form.armor.choices = dnd_armor
+
+    item_form.item1.choices = dnd_items
+    item_form.item2.choices = dnd_items
+    item_form.item3.choices = dnd_items
+    item_form.item4.choices = dnd_items
+    item_form.item5.choices = dnd_items
+    item_form.item6.choices = dnd_items
+
+    # if form.validate_on_submit():
+    #     new_char = Character(
+    #         character_name = form.character_name.data.lower(),
+    #         gender = form.gender.data,
+    #         race = form.race.data,
+    #         character_class = form.character_class.data,
+    #         background = form.background.data
+    #         )
+
+    #     db.session.add(new_char)
+            
+    #     char_stats = Stat(
+    #         strength = stat_form.strength.data,
+    #         dexterity = stat_form.dexterity.data,
+    #         constitution = stat_form.constitution.data,
+    #         intelligence = stat_form.intelligence.data,
+    #         wisdom = stat_form.wisdom.data,
+    #         charisma = stat_form.charisma.data,
+    #     )
+    #     db.session.add(char_stats)
+
+    #     char_equipment = Equipment(
+    #         weapon1 = equipment_form.weapon1.data,
+    #         weapon2 = equipment_form.weapon2.data,
+    #         weapon3 = equipment_form.weapon3.data,
+    #         armor = equipment_form.armor.data,
+    #     )
+    #     db.session.add(char_equipment)
+
+    #     char_items = Item(
+    #         item1 = item_form.item1.data,
+    #         item2 = item_form.item2.data,
+    #         item3 = item_form.item3.data,
+    #         item4 = item_form.item4.data,
+    #         item5 = item_form.item5.data,
+    #         item6 = item_form.item6.data,
+    #     )
+    #     db.session.add(char_items)
+    #     db.session.commit()
+
+                    
+    #     g.user.my_characters.append(new_char)
+    #     new_char.character_stats.append(char_stats)
+    #     new_char.character_equipment.append(char_equipment)
+    #     new_char.character_items.append(char_items)
+    #     db.session.commit()
+
+    #     return redirect('/')
+    # else: 
+    return render_template('character_profile.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form)
+
+
+@app.route('/user/<int:user_id>/characters/<int:character_id>')
+def character_edit(user_id, char_id):
+    """this is the route for a user to make adjustments to their character"""
+    
+    return redirect('/')
 

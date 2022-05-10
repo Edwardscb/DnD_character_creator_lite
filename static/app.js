@@ -1,3 +1,25 @@
+const searchBar = document.getElementById('search-bar');
+const searchButton = document.getElementById('search-button');
+const search = document.getElementById('search');
+const searchForm = document.getElementById('search-form')
+
+search.addEventListener("click", (evt) => {
+    evt.preventDefault();
+    searchBar.classList.toggle('hidden')
+    searchButton.classList.toggle('hidden')
+    searchForm.classList.toggle('hidden')
+})
+
+
+
+
+
+
+
+
+
+
+
 // const statsDiv = document.getElementById("stats")
 // const char_class = document.getElementById("character_class")
 

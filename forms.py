@@ -49,4 +49,11 @@ class ItemsForm(FlaskForm):
     item4 = SelectField('Item')
     item5 = SelectField('Item')
     item6 = SelectField('Item')
+
+class EditProfileForm(FlaskForm):
+
+    email = TextField('Update e-mail')
+    password = PasswordField('Update password')
+    image_url = TextField('Update profile image')
+    
     
