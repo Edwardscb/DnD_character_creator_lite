@@ -78,13 +78,15 @@ def sign_up():
     if form.validate_on_submit():
         try:
             user = User.signup(
-
-                image_url = form.image_url.data,                            
+                                               
                 username = form.username.data,
                 password = form.password.data,
-                email = form.email.data
+                email = form.email.data,
+                image_url = form.image_url.data or User.image_url.default.arg,
                 
             )
+
+
 
             db.session.commit()
         
@@ -174,90 +176,102 @@ def get_items():
 @app.route('/new_character', methods=["GET", "POST"])
 def create_new_character():
 
-    form = CharacterCreationForm()
-    stat_form = BaseStatForm()
-    equipment_form = EquipmentForm()
-    item_form = ItemsForm()
+    if g.user: 
+        form = CharacterCreationForm()
+        stat_form = BaseStatForm()
+        equipment_form = EquipmentForm()
+        item_form = ItemsForm()
 
-    form.gender.choices = gender
-    get_races()
-    get_classes()
-    get_stats()
-    get_equipment()
-    get_armor()
-    get_items()
+        form.gender.choices = gender
+        get_races()
+        get_classes()
+        get_stats()
+        get_equipment()
+        get_armor()
+        get_items()
 
-    form.race.choices = dnd_races
-    form.character_class.choices = dnd_classes
-    form.background.choices = dnd_backgrounds
+        form.race.choices = dnd_races
+        form.character_class.choices = dnd_classes
+        form.background.choices = dnd_backgrounds
 
-    stat_form.strength.choices = dnd_stats
-    stat_form.dexterity.choices = dnd_stats
-    stat_form.constitution.choices = dnd_stats
-    stat_form.intelligence.choices = dnd_stats
-    stat_form.wisdom.choices = dnd_stats
-    stat_form.charisma.choices = dnd_stats
+        stat_form.strength.choices = dnd_stats
+        stat_form.dexterity.choices = dnd_stats
+        stat_form.constitution.choices = dnd_stats
+        stat_form.intelligence.choices = dnd_stats
+        stat_form.wisdom.choices = dnd_stats
+        stat_form.charisma.choices = dnd_stats
 
-    equipment_form.weapon1.choices = dnd_weapons
-    equipment_form.weapon2.choices = dnd_weapons
-    equipment_form.weapon3.choices = dnd_weapons
-    equipment_form.armor.choices = dnd_armor
+        equipment_form.weapon1.choices = dnd_weapons
+        equipment_form.weapon2.choices = dnd_weapons
+        equipment_form.weapon3.choices = dnd_weapons
+        equipment_form.armor.choices = dnd_armor
 
-    item_form.item1.choices = dnd_items
-    item_form.item2.choices = dnd_items
-    item_form.item3.choices = dnd_items
-    item_form.item4.choices = dnd_items
-    item_form.item5.choices = dnd_items
-    item_form.item6.choices = dnd_items
+        item_form.item1.choices = dnd_items
+        item_form.item2.choices = dnd_items
+        item_form.item3.choices = dnd_items
+        item_form.item4.choices = dnd_items
+        item_form.item5.choices = dnd_items
+        item_form.item6.choices = dnd_items
 
-    if form.validate_on_submit():
-        new_char = Character(
-            character_name = form.character_name.data,
-            gender = form.gender.data,
-            race = form.race.data,
-            character_class = form.character_class.data
+        if form.validate_on_submit():
+            new_char = Character(
+                character_name = form.character_name.data,
+                gender = form.gender.data,
+                race = form.race.data,
+                character_class = form.character_class.data
+                )
+
+            db.session.add(new_char)
+            
+            char_stats = Stat(
+                strength = stat_form.strength.data,
+                dexterity = stat_form.dexterity.data,
+                constitution = stat_form.constitution.data,
+                intelligence = stat_form.intelligence.data,
+                wisdom = stat_form.wisdom.data,
+                charisma = stat_form.charisma.data,
             )
+            db.session.add(char_stats)
 
-        db.session.add(new_char)
-        
-        char_stats = Stat(
-            strength = stat_form.strength.data,
-            dexterity = stat_form.dexterity.data,
-            constitution = stat_form.constitution.data,
-            intelligence = stat_form.intelligence.data,
-            wisdom = stat_form.wisdom.data,
-            charisma = stat_form.charisma.data,
-        )
-        db.session.add(char_stats)
+            char_equipment = Equipment(
+                weapon1 = equipment_form.weapon1.data,
+                weapon2 = equipment_form.weapon2.data,
+                weapon3 = equipment_form.weapon3.data,
+                armor = equipment_form.armor.data,
+            )
+            db.session.add(char_equipment)
 
-        char_equipment = Equipment(
-            weapon1 = equipment_form.weapon1.data,
-            weapon2 = equipment_form.weapon2.data,
-            weapon3 = equipment_form.weapon3.data,
-            armor = equipment_form.armor.data,
-        )
-        db.session.add(char_equipment)
+            char_items = Item(
+                item1 = item_form.item1.data,
+                item2 = item_form.item2.data,
+                item3 = item_form.item3.data,
+                item4 = item_form.item4.data,
+                item5 = item_form.item5.data,
+                item6 = item_form.item6.data,
+            )
+            db.session.add(char_items)
+            db.session.commit()
 
-        char_items = Item(
-            item1 = item_form.item1.data,
-            item2 = item_form.item2.data,
-            item3 = item_form.item3.data,
-            item4 = item_form.item4.data,
-            item5 = item_form.item5.data,
-            item6 = item_form.item6.data,
-        )
-        db.session.add(char_items)
+                    
+            g.user.my_characters.append(new_char)
+            new_char.character_stats.append(char_stats)
+            new_char.character_equipment.append(char_equipment)
+            new_char.character_items.append(char_items)
+            db.session.commit()
 
-        db.session.commit()
-        
-
-        return redirect('/')
+            return redirect('/')
+        else: 
+            return render_template('character_creation.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form)
     else: 
+        flash('Please log-in to create a new character')
+        return redirect('/')
 
-
-        return render_template('character_creation.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form)
-
-# @app.route('/logout')
+@app.route('/logout')
+def logout():
+    do_logout()
+    flash('Logout successful! We look forward to your next visit!')
+    return redirect('/')
+        
 
 # @app.route('/users/<int:user_id>')
 

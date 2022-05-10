@@ -22,7 +22,7 @@
     background-image: url(/static/assets/red_knight.png);
     height: 500px;
     width: 500px;
-    margin-left: 13%;
+    margin-left: 12.5%;
     margin-top: 4%;
     z-index: 9;
 }
@@ -40,22 +40,25 @@
 }
 .wizard {
     position: absolute;
-    margin-left: 27%;
+    margin-left: 28%;
     margin-top: 8.5%;
-    background-image: url(/static/assets/manwizard.PNG);
+    background-image: url(/static/assets/manwizard2.PNG);
     height: 300px;
-    width: 300px;
+    width: 200px;
     z-index: 8;
+ 
 
 }
 .viking {
     position: absolute;
-    margin-left: 9%;
+    margin-left: 11%;
     margin-top: 10%;
     background-image: url(/static/assets/viking_ready.PNG);
     height: 275px;
-    width: 275px;
+    width: 250px;
     z-index: 8;
+
+   
 
 }
 .kitten {

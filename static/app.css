@@ -156,13 +156,16 @@ ul {
 
 }
 
-.witch {
-    background-image: url(/static/assets/witch.png);
-    height: 200px;
-    width: 200px;
-    grid-column: 4;
-    z-index: 10;
+.flash_message {
+  position: absolute;
+  margin-left: -5%;
+  color: rgb(7, 255, 7);
 }
+
+h1 {
+font-family: Arial;
+}
+
 .scroll-div {
   background-image: url(/static/assets/even_longer_scroll.png);
   margin-top: -1%;

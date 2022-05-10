@@ -19,8 +19,9 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable = False)
     password = db.Column(db.Text, nullable = False)
     email = db.Column(db.Text, nullable = False)
-    image_url = db.Column(db.Text, default='/static/assets/default_profile.jpg')
+    image_url = db.Column(db.Text, default='/static/assets/default_profile.png')
     character_id = db.ForeignKey('characters.id', ondelete='cascade')
+    my_characters = db.relationship('Character', secondary='character_information', backref='curr_user')
 
     @classmethod
     def signup(cls, username, email, password, image_url):
@@ -32,11 +33,7 @@ class User(db.Model):
             email=email,
             password=hashed_pwd,
             image_url = image_url
-            
-
-            
-
-        )
+)
 
         db.session.add(user)
         return user
@@ -58,13 +55,30 @@ class Character(db.Model):
     __tablename__ = 'characters'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
-    character_name = (db.String(30))
-    gender = (db.Text)
-    race = (db.Text)
-    character_class = (db.Text)
+    character_name = db.Column(db.String(30))
+    gender = db.Column(db.Text)
+    race = db.Column(db.Text)
+    character_class = db.Column(db.Text)
     stats = db.ForeignKey('stats.id')
-    equipment = db.ForeignKey('equipments')
-    items = db.ForeignKey('items')
+    equipment = db.ForeignKey('equipments.id')
+    items = db.ForeignKey('items.id')
+    character_stats = db.relationship('Stat', secondary='character_information', backref='curr_char')
+    character_equipment = db.relationship('Equipment', secondary='character_information', backref='curr_char')
+    character_items = db.relationship('Item', secondary='character_information', backref='curr_char')
+    creator = db.ForeignKey('users.id')
+
+class CharacterInfo(db.Model):
+
+    __tablename__ = 'character_information'
+
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='cascade'))
+    char_id = db.Column(db.Integer, db.ForeignKey('characters.id', ondelete='cascade'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id', ondelete='cascade'))
+    stat_id = db.Column(db.Integer, db.ForeignKey('stats.id', ondelete='cascade'))
+    equip_id = db.Column(db.Integer, db.ForeignKey('equipments.id', ondelete='cascade'))
+
+
 
 class Stat(db.Model):
 
