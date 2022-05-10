@@ -1,0 +1,310 @@
+
+.character_form {
+
+    display: grid;
+    grid-template-columns: 100px 100px 150px 250px;
+    grid-auto-columns: 100px;
+    grid-template-rows: 30px; 
+    grid-auto-rows: 20px;
+    gap: 10px;
+    font-family: Helvetica;
+    color: rgb(62, 25, 104);
+    margin-top: 8.5%;
+    margin-left: 28%;
+      max-width: 50%;
+    height: 60%;
+    z-index: 9;
+    
+}
+
+.red_knight {
+    position: absolute;
+    background-image: url(/static/assets/red_knight.png);
+    height: 500px;
+    width: 500px;
+    margin-left: 13%;
+    margin-top: 4%;
+    z-index: 9;
+}
+
+.witch {
+    position: absolute;
+    margin-left: 14%;
+    margin-top: 3%;
+    background-image: url(/static/assets/witch.png);
+    height: 250px;
+    width: 250px;
+    z-index: 1;
+
+
+}
+.wizard {
+    position: absolute;
+    margin-left: 27%;
+    margin-top: 8.5%;
+    background-image: url(/static/assets/manwizard.PNG);
+    height: 300px;
+    width: 300px;
+    z-index: 8;
+
+}
+.viking {
+    position: absolute;
+    margin-left: 9%;
+    margin-top: 10%;
+    background-image: url(/static/assets/viking_ready.PNG);
+    height: 275px;
+    width: 275px;
+    z-index: 8;
+
+}
+.kitten {
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 22%;
+    background-image: url(/static/assets/tiglet.PNG);
+    height: 100px;
+    width: 100px;
+    z-index: 8;
+
+}
+
+.char-submit {
+    grid-column: 6;
+    grid-row: 16;
+    height: 170px;
+    width: 170px;
+    
+}
+
+.character_name {
+    font-size: 20px;
+    grid-column: 3;
+    text-align: right;
+}
+
+#character_name {
+    font-size: 20px;
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+.gender {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: right;
+}
+
+#gender {
+    grid-column: 2;
+    grid-row: 2;
+
+}
+
+.race {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: right;
+}
+
+#race {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.character_class {
+    grid-column: 1;
+    grid-row: 4;
+    text-align: right;
+}
+
+#character_class {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.background {
+    grid-column: 1;
+    grid-row: 5;
+    text-align: right;
+}
+
+#background {
+    grid-column: 2;
+    grid-row: 5;
+}
+
+.weapon1 {
+    grid-column: 1;
+    grid-row: 7;
+    
+}
+
+#weapon1 {
+    grid-column: 2;
+    grid-row: 7;
+
+}
+
+.weapon2 {
+    grid-column: 1;
+    grid-row: 8;
+}
+
+#weapon2 {
+    grid-column: 2;
+    grid-row: 8;
+}
+
+.weapon3 {
+    grid-column: 1;
+    grid-row: 9;
+}
+
+#weapon3 {
+    grid-column: 2;
+    grid-row: 9;
+}
+
+.armor {
+    grid-column: 1;
+    grid-row: 10;
+}
+
+#armor {
+    grid-column: 2;
+    grid-row: 10;
+}
+
+#strength {
+    grid-column: 6;
+    grid-row: 2;
+}
+
+.strength {
+    grid-column: 7;
+    grid-row: 2;
+    text-align: left;
+}
+
+#dexterity {
+    grid-column: 6;
+    grid-row: 3;
+}
+
+.dexterity {
+    grid-column: 7;
+    grid-row: 3;
+    text-align: left;
+}
+
+#constitution {
+    grid-column: 6;
+    grid-row: 4;
+}
+
+.constitution {
+    grid-column: 7;
+    grid-row: 4;
+    text-align: left;
+}
+
+#intelligence {
+    grid-column: 6;
+    grid-row: 5;
+}
+
+.intelligence {
+    grid-column: 7;
+    grid-row: 5;
+    text-align: left;
+}
+
+#wisdom {
+    grid-column: 6;
+    grid-row: 6;
+}
+
+.wisdom {
+    grid-column: 7;
+    grid-row: 6;
+    text-align: left
+}
+
+#charisma {
+    grid-column: 6;
+    grid-row: 7;
+
+}
+
+.charisma {
+    grid-column: 7;
+    grid-row: 7;
+    text-align: left;
+}
+
+#item1 {
+    grid-column: 6;
+    grid-row: 8;
+}
+
+.item1 {
+    grid-column: 7;
+    grid-row: 8;
+    text-align: left;
+}
+
+#item2 {
+    grid-column: 6;
+    grid-row: 9;
+}
+
+.item2 {
+    grid-column: 7;
+    grid-row: 9;
+    text-align: left;
+}
+
+#item3 {
+    grid-column: 6;
+    grid-row: 10;
+}
+
+.item3 {
+    grid-column: 7;
+    grid-row: 10;
+    text-align: left;
+}
+
+#item4 {
+    grid-column: 6;
+    grid-row: 11;
+}
+
+.item4 {
+    grid-column: 7;
+    grid-row: 11;
+    text-align: left;
+}
+
+#item5 {
+    grid-column: 6;
+    grid-row: 12;
+}
+
+.item5 {
+    grid-column: 7;
+    grid-row: 12;
+    text-align: left;
+}
+
+#item6 {
+    grid-column: 6;
+    grid-row: 13;
+}
+
+.item6 {
+    grid-column: 7;
+    grid-row: 13;
+    text-align: left;
+}

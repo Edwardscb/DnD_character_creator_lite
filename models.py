@@ -13,13 +13,14 @@ def connect_db(app):
 
 class User(db.Model):
 
-    __tablename__ = "users"
+    __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     username = db.Column(db.String(20), nullable = False)
     password = db.Column(db.Text, nullable = False)
     email = db.Column(db.Text, nullable = False)
     image_url = db.Column(db.Text, default='/static/assets/default_profile.jpg')
+    character_id = db.ForeignKey('characters.id', ondelete='cascade')
 
     @classmethod
     def signup(cls, username, email, password, image_url):
@@ -31,6 +32,8 @@ class User(db.Model):
             email=email,
             password=hashed_pwd,
             image_url = image_url
+            
+
             
 
         )
@@ -52,13 +55,52 @@ class User(db.Model):
 
 class Character(db.Model):
 
-    __tablename__ = "characters"
+    __tablename__ = 'characters'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
     character_name = (db.String(30))
     gender = (db.Text)
     race = (db.Text)
     character_class = (db.Text)
+    stats = db.ForeignKey('stats.id')
+    equipment = db.ForeignKey('equipments')
+    items = db.ForeignKey('items')
+
+class Stat(db.Model):
+
+    __tablename__ = 'stats'
+
+    id = db.Column(db.Integer, primary_key= True, autoincrement = True)
+    strength = db.Column(db.Integer)
+    dexterity = db.Column(db.Integer)
+    constitution = db.Column(db.Integer)
+    intelligence = db.Column(db.Integer)
+    wisdom = db.Column(db.Integer)
+    charisma = db.Column(db.Integer)
+
+class Equipment(db.Model):
+
+    __tablename__ = 'equipments'
+
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    weapon1 = db.Column(db.Text)
+    weapon2 = db.Column(db.Text)
+    weapon3 = db.Column(db.Text)
+    armor = db.Column(db.Text)
+
+class Item(db.Model):
+
+    __tablename__ = 'items'
+
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    item1 = db.Column(db.Text)
+    item2 = db.Column(db.Text)
+    item3 = db.Column(db.Text)
+    item4 = db.Column(db.Text)
+    item5 = db.Column(db.Text)
+    item6 = db.Column(db.Text)
+
+
 
     
 

@@ -1,27 +1,80 @@
 {% extends "base.html" %}
 
+
+
 {% block title %}New Character{% endblock %}
 
 {% block content %}
 <div class="scroll-div background">
-    <form class="character_form">
-        <!-- hides csrf token  -->
+
+    <form method="POST" class="character_form">
+        
+
+
+    <!-- hides csrf token  -->
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
+
     <!-- shows error messages if there are any  -->
     {% for error in field.errors %}
     {% endfor %}
+
     <!-- renders form with character name, gender, race, and class  -->
-    {{field.label}} {{field}} 
+    {{field.label(class_=field.name)}} {{field}}
     {% endfor %}
-
-    <div id="stats"></div>
-    <div id="hit-dice" class="hit-dice">Hitpoints: <select  class="default-option" id="default-option"><option>Select Class</option></select></div>
+    
 
 
+<!-- renders the stats drop-down menus for str, dex, con, int, wis, and cha  -->
+
+        {{form.hidden_tag()}}
+        {% for field in stat_form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        {% endfor %}
+        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        {% endfor %}
+
+
+
+    <!-- renders the equipment drop-down menus for weapons and armor  -->
+
+        {{form.hidden_tag()}}
+        {% for field in equipment_form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        {% endfor %}
+        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        {% endfor %}
+
+
+
+
+    <!-- renders the items drop-down menus  -->
+
+        {{form.hidden_tag()}}
+        {% for field in item_form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        {% endfor %}
+        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        {% endfor %}
+        <div class="witch background">        
+        </div>
+        <div class="red_knight background"></div>
+        <div class="kitten background"></div>
+        <div class="wizard background"></div>
+        <div class="viking background"></div>
+
+
+       
+
+  
+
+    <!-- <div id="hit-dice" class="hit-dice">Hitpoints: <select  class="default-option" id="default-option"><option>Select Class</option></select></div> -->
+
+<button type="submit" name="btn" class="submit-button char-submit"></button>
 
         
     </form>
+ 
 
 </div>
 {% endblock %}
