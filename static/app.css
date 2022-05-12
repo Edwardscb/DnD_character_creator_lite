@@ -124,7 +124,7 @@ ul {
 }
 
 .signup-div {
-  font-size: 18px;
+  font-size: 24px;
   font-family: Helvetica;
   color: white;
   text-align: center;
@@ -224,6 +224,12 @@ h1 {
 font-family: Arial;
 }
 
+.char_list {
+  list-style: none;
+  font-size: 12px;
+  font-family: Helvetica;
+  font-weight: bold;  
+}
 
 
 
@@ -303,7 +309,7 @@ font-family: Arial;
     width: 370px;
     font-size: 24px;
     font-family: Helvetica;
-    color:rgb(4, 184, 184);
+    color: white;
   }
 
 .email {
@@ -344,6 +350,14 @@ font-family: Arial;
   font-size: 20px;
 }
 
+.username {
+  font-size: 24px;
+}
+
+#username {
+  font-size: 20px;
+}
+
 .profile-submit-button {
   margin: 0;
   padding: 0;
@@ -353,7 +367,7 @@ font-family: Arial;
 }
 
 .link-text {
-  color:rgb(4, 184, 184);
+  color: white;
 }
 
 .search-textbox-div {

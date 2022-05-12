@@ -1,74 +1,93 @@
+.half-elf {
+    position: absolute;
+    height: 100px;
+    width: 200px;
+    margin-left: 46%;
+    margin-top: -1%;
+    text-align: center;
+    color: rgb(24, 131, 134);
+    font-size: 20px;
+   
+}
+
+.modifiers {
+    text-align: center;
+    font-size: 42px;
+    font-family: Helvetica;
+    color: white;
+}
+
 .strength-div {
     grid-column: 3;
     grid-row: 2;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/strength.png);
+    height: 150px;
+    width: 150px;
 }
 .dexterity-div {
     grid-column: 3;
     grid-row: 6;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/dexterity.png);
+    height: 150px;
+    width: 150px;
 }
 .constitution-div {
     grid-column: 3;
     grid-row: 10;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/constitution.png);
+    height: 150px;
+    width: 150px;
 }
 .intelligence-div {
-    /* justify-self: center; */
+    justify-self: center;
     grid-column: 4;
     grid-row: 2;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/intelligence.png);
+    height: 150px;
+    width: 150px;
 }
 .wisdom-div {
-    /* justify-self: center; */
+    justify-self: center;
     grid-column: 4;
     grid-row: 6;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/wisdom.png);
+    height: 150px;
+    width: 150px;
 }
 .charisma-div {
-    /* justify-self: center; */
+    justify-self: center;
     grid-column: 4;
     grid-row: 10;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/charisma.png);
+    height: 150px;
+    width: 150px;
 }
 .misc1-div {
     justify-self: end;
-    grid-column: 4;
+    grid-column: 5;
     grid-row: 2;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/armorclass.png);
+    height: 150px;
+    width: 150px;
 }
 .misc2-div {
     justify-self: end;
-    grid-column: 4;
+    grid-column: 5;
     grid-row: 6;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/proficiency.png);
+    height: 150px;
+    width: 150px;
 }
 .misc3-div {
     justify-self: end;
-    grid-column: 4;
+    grid-column: 5;
     grid-row: 10;
-    background-image: url(/static/assets/stat_container.png);
-    height: 100px;
-    width: 100px;
+    background-image: url(/static/assets/hitpoints.png);
+    height: 150px;
+    width: 150px;
 }
-.misc4-div {
-    /* justify-self: end; */
+/* .misc4-div {
+    justify-self: end;
     grid-column: 5;
     grid-row: 2;
     background-image: url(/static/assets/stat_container.png);
@@ -76,7 +95,7 @@
     width: 100px;
 }
 .misc5-div {
-    /* justify-self: end; */
+    justify-self: end;
     grid-column: 5;
     grid-row: 6;
     background-image: url(/static/assets/stat_container.png);
@@ -84,13 +103,13 @@
     width: 100px;
 }
 .misc6-div {
-    /* justify-self: end; */
+    justify-self: end;
     grid-column: 5;
     grid-row: 10;
     background-image: url(/static/assets/stat_container.png);
     height: 100px;
     width: 100px;
-}
+} */
 
 .character_form1 {
 
@@ -98,7 +117,7 @@
     grid-template-columns: 100px 100px 100px 260px;
     grid-auto-columns: 100px;
     grid-template-rows: 30px; 
-    grid-auto-rows: 20px;
+    grid-auto-rows: 30px;
     gap: 10px;
     font-family: Helvetica;
     color: rgb(62, 25, 104);

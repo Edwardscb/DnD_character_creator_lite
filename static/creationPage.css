@@ -17,6 +17,13 @@
     
 }
 
+.level {
+    font-family: Helvetica;
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .red_knight {
     position: absolute;
     background-image: url(/static/assets/red_knight.png);

@@ -17,29 +17,29 @@ class LoginForm(FlaskForm):
 
 class CharacterCreationForm(FlaskForm):
 
-    character_name = TextField('Character Name')
+    character_name = TextField('Character Name', validators=[InputRequired()])
     gender = SelectField('Sex')
-    race = SelectField('Race')
-    character_class = SelectField('Class')
+    race = SelectField('Race', validators=[DataRequired()])
+    character_class = SelectField('Class', validators=[DataRequired()])
     background = SelectField('Background')
 
 class BaseStatForm(FlaskForm):
     class Meta:
         csrf = False
 
-    strength = SelectField('Strength')
-    dexterity = SelectField('Dexterity')
-    constitution = SelectField('Constitution')
-    intelligence = SelectField('Intelligence')
-    wisdom = SelectField('Wisdom')
-    charisma = SelectField('Charisma')
+    strength = SelectField('Strength', validators=[DataRequired()])
+    dexterity = SelectField('Dexterity', validators=[DataRequired()])
+    constitution = SelectField('Constitution', validators=[DataRequired()])
+    intelligence = SelectField('Intelligence', validators=[DataRequired()])
+    wisdom = SelectField('Wisdom', validators=[DataRequired()])
+    charisma = SelectField('Charisma', validators=[DataRequired()])
 
 class EquipmentForm(FlaskForm):
 
-    weapon1 = SelectField('Weapon')
-    weapon2 = SelectField('Weapon')
-    weapon3 = SelectField('Weapon')
-    armor = SelectField('Armor')
+    weapon1 = SelectField('Main Hand')
+    weapon2 = SelectField('Off Hand')
+    weapon3 = SelectField('Back or Two-Hand')
+    armor = SelectField('Armor', validators=[DataRequired()])
 
 class ItemsForm(FlaskForm):
 

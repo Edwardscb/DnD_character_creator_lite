@@ -55,10 +55,10 @@ class Character(db.Model):
     __tablename__ = 'characters'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement = True)
-    character_name = db.Column(db.String(30))
+    character_name = db.Column(db.String(12), nullable=False)
     gender = db.Column(db.Text)
-    race = db.Column(db.Text)
-    character_class = db.Column(db.Text)
+    race = db.Column(db.Text, nullable=False)
+    character_class = db.Column(db.Text, nullable=False)
     background = db.Column(db.Text)
     stats = db.ForeignKey('stats.id')
     equipment = db.ForeignKey('equipments.id')
@@ -102,6 +102,7 @@ class Equipment(db.Model):
     weapon2 = db.Column(db.Text)
     weapon3 = db.Column(db.Text)
     armor = db.Column(db.Text)
+
 
 class Item(db.Model):
 

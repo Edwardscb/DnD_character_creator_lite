@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "1234abcd")
 
 connect_db(app)
-db.create_all()
+db.create_all() 
 
 @app.before_request
 def add_user_to_g():
@@ -58,7 +58,7 @@ def login():
         
         if user:
             do_login(user)
-            return redirect('/')
+            return redirect(f'/users/{user.id}')
         
         
         else:
@@ -96,28 +96,26 @@ def sign_up():
         
         do_login(user)
 
-        return redirect('/')
+        return redirect(f'/users/{user.id}')
     
     else:
         return render_template('signup.html', form=form)
 
 # these serve as a place to store the data once requested from the dnd5e api        
-dnd_classes = [('None', 'None')]
-dnd_races = [('None', 'None')]
+dnd_classes = [('', '')]
+dnd_races = [('', '')]
 dnd_stats = []
-dnd_weapons = [('None', 'None')]
-dnd_items = [('None', 'None')]
-dnd_armor = [('None', 'None')]
-dnd_backgrounds = [('None', 'None'), ('Acolyte', 'Acolyte'), ('Charlatan', 'Charlatan'), ('Criminal', 'Criminal'), ('Entertainer', 'Entertainer'), ('Folk Hero', 'Folk Hero'), 
+dnd_weapons = [('', ''), ('shields', 'Shield')]
+dnd_items = [('', '')]
+dnd_armor = [('', '')]
+dnd_backgrounds = [('', ''), ('Acolyte', 'Acolyte'), ('Charlatan', 'Charlatan'), ('Criminal', 'Criminal'), ('Entertainer', 'Entertainer'), ('Folk Hero', 'Folk Hero'), 
 ('Guild Artisan', 'Guild Artisan'), ('Hermit', 'Hermit'), ('Noble', 'Noble'), ('Outlander', 'Outlander'), ('Sage', 'Sage'), ('Sailor', 'Sailor'), ('Soldier', 'Soldier'),
 ('Urchin', 'Urchin')]
-gender = [('Male', 'Male'), ('Female', 'Female'), ('Yes', 'Yes'), ('No', 'No'), ('Maybe?', 'Maybe?'), ('None', 'None')]
-
-
+gender = [("", ""), ('Male', 'Male'), ('Female', 'Female')]
 
 def get_races():
     """function to get the races out of the results returned by the dnd api and puts them into tuple format so the WTForms select field can use them"""
-    if len(dnd_races) < 2:
+    if len(dnd_races) < 5:
         races = requests.get('https://www.dnd5eapi.co/api/races').json()
         results = races.get('results')    
         for race in results:
@@ -127,46 +125,45 @@ def get_races():
 
 def get_classes():
     """function to get the classes out of the results returned by the dnd api and puts them into tuple format so the WTForms select field can use them"""
-    if len(dnd_classes) < 2:
+    if len(dnd_classes) < 5:
         classes = requests.get('https://www.dnd5eapi.co/api/classes/').json()
         class_results = classes.get('results')    
         for new_class in class_results:
             jobClass = new_class.get('name')
             dnd_classes.append((jobClass,jobClass))
 
-def get_stats(num=18):
+def get_stats(num=40):
     """function to populate the dnd_stats list, default is 1 to 18, however, option to do more or less depending on user input"""
-    if len(dnd_stats) < 2:
+    if len(dnd_stats) < 5:
         for n in range(num+1):
             dnd_stats.append((n,n))
 
 def get_equipment():
     """calls the api, gets all weapons, and pushes them to the dnd_weapons list as the name of the weapon if the list isn't already populated"""
-    if len(dnd_weapons) < 2:
+    if len(dnd_weapons) < 5:
         weapons = requests.get('https://www.dnd5eapi.co/api/equipment-categories/weapon').json()
         weapons_results = weapons.get('equipment')
-        print(weapons_results)
 
         for weapon in weapons_results:
             new_weapon = weapon['name']
-            dnd_weapons.append((new_weapon, new_weapon))
+            dnd_weapons.append((weapon['index'], new_weapon))
 
 def get_armor():
     """calls the api, gets all armors, and pushes them to the dnd_weapons list as the name of the weapon if the list isn't already populated"""
 
-    if len(dnd_armor) < 2:
+    if len(dnd_armor) < 5:
         equipment = requests.get('https://www.dnd5eapi.co/api/equipment-categories/armor').json()
         equipment_results = equipment.get('equipment')
         print(equipment_results)
 
         for armor in equipment_results:
             new_armor = armor['name']
-            dnd_armor.append((new_armor, new_armor))
+            dnd_armor.append((armor['index'], new_armor))
 
 
 def get_items():
     """calls the api, gets all items, and pushes them to the dnd_weapons list as the name of the weapon if the list isn't already populated"""
-    if len(dnd_items) < 2:
+    if len(dnd_items) < 5:
         items = requests.get('https://www.dnd5eapi.co/api/equipment').json()
         items_results = items.get('results')
         for item in items_results:
@@ -225,12 +222,12 @@ def create_new_character():
             db.session.add(new_char)
             
             char_stats = Stat(
-                strength = stat_form.strength.data,
-                dexterity = stat_form.dexterity.data,
-                constitution = stat_form.constitution.data,
-                intelligence = stat_form.intelligence.data,
-                wisdom = stat_form.wisdom.data,
-                charisma = stat_form.charisma.data,
+                strength = int(stat_form.strength.data),
+                dexterity = int(stat_form.dexterity.data),
+                constitution = int(stat_form.constitution.data),
+                intelligence = int(stat_form.intelligence.data),
+                wisdom = int(stat_form.wisdom.data),
+                charisma = int(stat_form.charisma.data),
             )
             db.session.add(char_stats)
 
@@ -239,6 +236,7 @@ def create_new_character():
                 weapon2 = equipment_form.weapon2.data,
                 weapon3 = equipment_form.weapon3.data,
                 armor = equipment_form.armor.data,
+               
             )
             db.session.add(char_equipment)
 
@@ -260,7 +258,7 @@ def create_new_character():
             new_char.character_items.append(char_items)
             db.session.commit()
 
-            return redirect('/')
+            return redirect(f'/characters/{new_char.id}')
         else: 
             return render_template('character_creation.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form)
     else: 
@@ -279,19 +277,23 @@ def profile_page(user_id):
     """shows a user their profile page if they are logged in"""
     user = User.query.get(user_id)
     user_chars = user.my_characters
-    if g.user.id == user_id:
-        form = EditProfileForm(obj=g.user)
-        if form.validate_on_submit():            
-            user.password = form.email.data,
-            user.email = form.email.data,
-            user.image_url = form.image_url.data,
-            db.session.commit()
-            return redirect(f"/users/{g.user.id}")
+    try:
+        if g.user.id == user_id:
+            form = EditProfileForm(obj=g.user)
+            if form.validate_on_submit():            
+                user.password = form.email.data,
+                user.email = form.email.data,
+                user.image_url = form.image_url.data,
+                db.session.commit()
+                return redirect(f"/users/{g.user.id}")
+            else:
+                return render_template('profile.html', user=user, form=form, user_chars=user_chars)
         else:
-            return render_template('profile.html', user=user, form=form, user_chars=user_chars)
-    else:
+            flash("Please login to view the user profile page")
+            return render_template('/login')
+    except AttributeError:
         flash("Please login to view the user profile page")
-        return render_template('/login')
+        return redirect('/login')
 
 @app.route('/search')
 def search_function():
@@ -317,6 +319,7 @@ def character_profile(character_id):
     character_stats = character.character_stats[0]
     character_equipment = character.character_equipment[0]
     character_items = character.character_items[0]
+    # char_armor = character_equipment.armor
 
     form = CharacterCreationForm(obj=character)
     stat_form = BaseStatForm(obj=character_stats)
@@ -330,6 +333,9 @@ def character_profile(character_id):
     get_equipment()
     get_armor()
     get_items()
+    
+    # char_armor_index = [item[0] for item in dnd_armor if char_armor in item]
+
 
     form.race.choices = dnd_races
     form.character_class.choices = dnd_classes
@@ -403,6 +409,7 @@ def character_profile(character_id):
 
     #     return redirect('/')
     # else: 
+    
     return render_template('character_profile.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form)
 
 
