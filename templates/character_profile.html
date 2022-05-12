@@ -43,7 +43,7 @@
 
 
     <!-- renders the equipment drop-down menus for weapons and armor  -->
-    <div class="level">Level = 1</div>
+    <div class="level">Level = 1{{logged_in_user}}{{char_owner}}</div>
 
         {{form.hidden_tag()}}
         {% for field in equipment_form if field.widget.input_type != 'hidden' %}
@@ -76,13 +76,21 @@
                 
 </form>
 </fieldset>
-<!-- <div id="{{char_armor_index}}"></div> -->
+   {% if logged_in_user != char_owner %}
+<form action="/characters/edit/{{char_id}}" class="hidden">
+    <button class="edit-button background submit-button" id="edit_button"></button>
+</form>
+<form action="/characters/delete/{{ char_id }}" class="hidden" method="POST">
+    <button class="delete-button background submit-button" id="delete_button"></button>
+</form>
+{% else %}
 <form action="/characters/edit/{{char_id}}">
-    <button class="edit-button background submit-button"></button>
+    <button class="edit-button background submit-button" id="edit_button"></button>
 </form>
 <form action="/characters/delete/{{ char_id }}" method="POST">
-    <button class="delete-button background submit-button"></button>
+    <button class="delete-button background submit-button" id="delete_button"></button>
 </form>
+{% endif %}
  
 
 </div>

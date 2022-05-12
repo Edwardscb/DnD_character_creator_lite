@@ -466,3 +466,24 @@ fieldset {
   color:rgb(4, 184, 184);
 }
 
+.user_view_username {
+  grid-column-start: 6;
+  grid-column-end: 12;
+  grid-row: 3;
+  font-size: 64px;
+  font-family: Helvetica;
+  color: white;
+  text-align: center;
+}
+
+.user_view_image {
+  grid-column: 8;
+  grid-row: 4;
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.user_view_chars {
+  grid-column: 8;
+  grid-row: 7;
+}

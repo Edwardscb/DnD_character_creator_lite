@@ -17,6 +17,7 @@ const char_class = document.getElementById('character_class');
 
 
 
+
 search.addEventListener("click", (evt) => {
     //adds an event listener to the search button so that when it is clicked it will remove the hidden class from the bar and allow a user to search users and characters
     evt.preventDefault();
@@ -43,8 +44,8 @@ async function getAbilityScores(stat_name, stat_value) {
 
     } } }
 
+
 char_profile_div.addEventListener("load", race_modifiers(race));
-// char_profile_div.addEventListener("load", weapon_and_armor_class(armor, weapon1, weapon2, weapon3));
 
 async function race_modifiers(char_race) {
 // gets the race of the character and calls the dnd api so to get the racial stat bonuses and then loops through the stats and adjusts stats accordingly

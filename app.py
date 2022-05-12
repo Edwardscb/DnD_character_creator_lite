@@ -74,15 +74,19 @@ def delete_character(character_id):
     """Deletes a character from the database"""
 
     character = Character.query.get_or_404(character_id)
-    if character.curr_user[0].id == g.user.id:
-        db.session.delete(character)
-        flash('Character deleted successfully')
-        db.session.commit()
-        return redirect(f'/users/{g.user.id}')
+    try:
+        if character.curr_user[0].id == g.user.id:
+            db.session.delete(character)
+            flash('Character deleted successfully')
+            db.session.commit()
+            return redirect(f'/users/{g.user.id}')
 
-    else: 
+        else: 
+            flash('You must be the owner of the character to delete it')
+            return redirect('/login')
+    except AttributeError:
         flash('You must be the owner of the character to delete it')
-        return redirect('/login')
+        return redirect(f'/characters/{character_id}')
 
 @app.route('/users/delete/<int:user_id>', methods=["POST"])
 def delete_user(user_id):
@@ -327,6 +331,15 @@ def profile_page(user_id):
         flash("Please login to view the user profile page")
         return redirect('/login')
 
+@app.route('/users/<int:user_id>/view', methods=["GET"])
+def view_user_page(user_id):
+    """shows a user their profile page if they are logged in"""
+    user_being_viewed = User.query.get_or_404(user_id)
+    user_chars = user_being_viewed.my_characters
+
+    return render_template('view_profile.html', user_being_viewed=user_being_viewed, user_chars=user_chars)
+
+
 @app.route('/search')
 def search_function():
     """User can search for other users by username OR search for characters by character name"""
@@ -357,11 +370,17 @@ def browse():
 def character_profile(character_id):
     """this is the route for users to view characters"""
 
+    if g.user:
+        logged_in_user = g.user.id
+    else: 
+        logged_in_user = ''
+
     character = Character.query.get_or_404(character_id)
     character_stats = character.character_stats[0]
     character_equipment = character.character_equipment[0]
     character_items = character.character_items[0]
     char_id = character_id
+    char_owner = character.curr_user[0].id
 
     form = CharacterCreationForm(obj=character)
     stat_form = BaseStatForm(obj=character_stats)
@@ -399,14 +418,8 @@ def character_profile(character_id):
     item_form.item5.choices = dnd_items
     item_form.item6.choices = dnd_items
     
-    return render_template('character_profile.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form, char_id=char_id)
+    return render_template('character_profile.html', form=form, stat_form=stat_form, equipment_form=equipment_form, item_form=item_form, char_id=char_id, logged_in_user=logged_in_user, char_owner=char_owner)
 
-
-@app.route('/user/<int:user_id>/characters/<int:character_id>')
-def character_edit(user_id, char_id):
-    """this is the route for a user to make adjustments to their character"""
-    
-    return redirect('/')
 
 @app.route('/characters/edit/<int:character_id>', methods=["GET", "POST"])
 def edit_character(character_id):

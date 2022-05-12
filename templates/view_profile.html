@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="large-textbox-div background">
+
+
+<div class="profile-page">
+
+
+    <div class="user_view_username">Username: {{user_being_viewed.username}}</div>
+    <div class="user_view_image"><image class='user_view_image' src="{{user_being_viewed.image_url}}"></image></div>
+    <div class="user_view_chars"><ol class="char_list">{% for char in user_chars %}
+    <li style="color:white"><a class="link-text" href="/characters/{{char.id}}">{{char.character_name}}</a></li><br>
+    {% endfor %}</ol></div>
+
+
+
+</div>
+
+</div>
+{% endblock %}
