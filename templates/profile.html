@@ -15,9 +15,14 @@
     {% endfor %}
     <div class='{{field.name}}'}}>{{field.label}} {{field}}</div>
     {% endfor %}
-    <div class="gold_border"><br>Your Characters:<br><ol class="char_list">{% for character in user_chars %}<br><li style="color:white"><a class="link-text" href="/characters/{{character.id}}">{{character.character_name}}{% endfor %}</a></li></ol></div>
+    <div class="gold_border"><br>Your Characters:<br><ol class="char_list">{% for character in user_chars %}<br><li style="color:white"><a class="link-text" href="/characters/{{character.id}}">{{character.character_name}}</a></li><br><br>{% endfor %}</ol></div>
     <button type="submit" id="submit-button" class="profile-submit-button submit-button"></button>
+    <form method="POST" action="/users/delete/{{user.id}}">
+    <button type="submit" id="delete-button" class="user-delete profile-delete-button submit-button"></button>
+    </form>
 </form>
-    <!-- <div id="hit-dice" class="hit-dice">Hitpoints: <select  class="default-option" id="default-option"><option>Select Class</option></select></div> -->
+
+
+
 </div>
 {% endblock %}

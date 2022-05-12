@@ -17,7 +17,7 @@ class LoginForm(FlaskForm):
 
 class CharacterCreationForm(FlaskForm):
 
-    character_name = TextField('Character Name', validators=[InputRequired()])
+    character_name = TextField('Character Name', validators=[InputRequired(), Length(max=12)])
     gender = SelectField('Sex')
     race = SelectField('Race', validators=[DataRequired()])
     character_class = SelectField('Class', validators=[DataRequired()])

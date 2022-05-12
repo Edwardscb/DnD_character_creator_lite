@@ -63,7 +63,7 @@
         {% endfor %}
         {{field.label(class_=field.name)}} {{field(class_=field.name)}}
         {% endfor %}
-    
+        
         <div class="strength-div background" id="strength-div"></div>
         <div class="dexterity-div background" id="dexterity-div"></div>
         <div class="wisdom-div background" id="wisdom-div"></div>
@@ -73,14 +73,16 @@
         <div class="misc1-div background" id="armor_class-div"></div>
         <div class="misc2-div background" id="proficiency-div"><p class="modifiers">+ 2</p></div>
         <div class="misc3-div background" id="hit_points-div"></div>
-    
-
-  
-
-        
+                
 </form>
 </fieldset>
 <!-- <div id="{{char_armor_index}}"></div> -->
+<form action="/characters/edit/{{char_id}}">
+    <button class="edit-button background submit-button"></button>
+</form>
+<form action="/characters/delete/{{ char_id }}" method="POST">
+    <button class="delete-button background submit-button"></button>
+</form>
  
 
 </div>

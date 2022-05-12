@@ -14,7 +14,7 @@
     <ul class="navbar-list" id="navbar-list">
         
         <li><a href="/">Home</a></li>
-        <li><a href="#news">News</a></li>
+        <li><a href="/browse">Browse</a></li>
         <li class="search" id="search"><a href="">Search</a></li>
         {% if g.user %}
         <li><a href='/new_character'>Create</a></li>
@@ -35,7 +35,7 @@
 
     {% if g.user %}
     <div class='div background' style="background-image:url({{g.user.image_url}})"></div>
-    <h1 class="h1">{{g.user.username}}</h1>
+    <h1 class="h1"><a href="/users/{{g.user.id}}" class="link-text">{{g.user.username}}</a></h1>
     {% endif %}
     {% block content %}
 
