@@ -7,26 +7,27 @@
     <link rel="stylesheet" href="{{url_for('static', filename='app.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='creationPage.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='character_page.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='media_queries.css')}}">
     
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="content-block">
     <ul class="navbar-list" id="navbar-list">
         
-        <li><a href="/">Home</a></li>
-        <li><a href="/browse">Browse</a></li>
+        <li id="home"><a href="/" >Home</a></li>
+        <li id="browse"><a href="/browse" >Browse</a></li>
         <li class="search" id="search"><a href="">Search</a></li>
         {% if g.user %}
-        <li><a href='/new_character'>Create</a></li>
-        <li style="float:right"><a href="/users/{{g.user.id}}">Profile</a></li>
-        <li style="float:right"><a href="/logout">Logout</a></li>
+        <li id="create"><a href='/new_character'>Create</a></li>
+        <li style="float:right" id="profile"><a href="/users/{{g.user.id}}">Profile</a></li>
+        <li style="float:right" id="logout"><a href="/logout">Logout</a></li>
         {% else %}
-        <li style="float:right"><a href="/signup">Signup</a></li>
-        <li style="float:right"><a href="/login">Login</a></li>
+        <li style="float:right" id="signup"><a href="/signup">Signup</a></li>
+        <li style="float:right" id="login"><a href="/login">Login</a></li>
         {% endif %}
     </ul>
     {% for message in get_flashed_messages() %}
-    <div class="flash_message"><h1>{{message}}</h1></div>
+    <div class="flash_message" id="flash_message"><h1>{{message}}</h1></div>
     {% endfor %}
 
     <form action="/search" class="hidden search-form" id="search-form">

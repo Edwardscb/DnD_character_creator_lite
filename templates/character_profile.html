@@ -43,7 +43,7 @@
 
 
     <!-- renders the equipment drop-down menus for weapons and armor  -->
-    <div class="level">Level = 1{{logged_in_user}}{{char_owner}}</div>
+    <div class="level">Level = 1</div>
 
         {{form.hidden_tag()}}
         {% for field in equipment_form if field.widget.input_type != 'hidden' %}

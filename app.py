@@ -143,7 +143,7 @@ dnd_backgrounds = [('', ''), ('Acolyte', 'Acolyte'), ('Charlatan', 'Charlatan'),
 ('Guild Artisan', 'Guild Artisan'), ('Hermit', 'Hermit'), ('Noble', 'Noble'), ('Outlander', 'Outlander'), ('Sage', 'Sage'), ('Sailor', 'Sailor'), ('Soldier', 'Soldier'),
 ('Urchin', 'Urchin')]
 # gender selections will not change unless I decide to add to it intentionally 
-gender = [("", ""), ('Male', 'Male'), ('Female', 'Female')]
+gender = [("", ""), ('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other'), ('No gender', 'No gender')]
 
 def get_races():
     """function to get the races out of the results returned by the dnd api and puts them into tuple format so the WTForms select field can use them"""

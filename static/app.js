@@ -1,5 +1,5 @@
 const searchBar = document.getElementById('search-bar');
-const searchButton = document.getElementById('search-button');
+const searchButton = document.getElementById('search');
 const search = document.getElementById('search');
 const searchForm = document.getElementById('search-form')
 const char_profile_div = document.getElementById('char_profile_div');
@@ -8,12 +8,31 @@ const dexterity = document.getElementById('dexterity-div');
 const constitution = document.getElementById('constitution-div');
 const race = document.getElementById("race");
 const stat_array = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
-// const ability_scores_modifier = Array.from({length: 16}, (_, i) => -5 + (i*1));
 const half_elf = document.getElementsByClassName("race");
 const scores_and_modifiers = {'-5':[0,1], '-4':[2,3], '-3':[4,5], '-2':[6,7], '-1':[8,9], '0':[10,11], '1':[12,13], '2':[14,15], '3':[16,17], '4':[18,19], '5':[20,21], '6':[22,23], '7':[24,25], '8':[26,27], '9':[28,29], '10':[30,31]};
 const base_url = 'https://www.dnd5eapi.co/api/';
 const armor = document.getElementById('armor');
 const char_class = document.getElementById('character_class');
+const browseButton = document.getElementById("browse");
+const flashMessage = document.getElementById('flash_message');
+
+
+window.onload = function() {
+    if (screen.width <= 400) {
+        searchButton.classList.add('hidden');
+        browseButton.classList.add('hidden');
+        welcomeDiv = document.getElementsByClassName("welcome-div");
+        let msg_div = document.createElement('div');
+        msg_div.innerText = "This website is not intended to be used on a mobile device, so it will have limited functionality"
+        msg_div.setAttribute("class", "noMobile");
+        welcomeDiv[0].append(msg_div);
+        if (flashMessage) {
+        flashMessage.classList.add('hidden');
+        };
+    }
+}
+
+
 
 
 
