@@ -131,7 +131,8 @@ def sign_up():
     else:
         return render_template('signup.html', form=form)
 
-# these serve as a place to store the data once requested from the dnd5e api        
+# these serve as a place to store the data once requested from the dnd5e api
+        
 dnd_classes = [('', '')]
 dnd_races = [('', '')]
 dnd_stats = []
@@ -175,25 +176,32 @@ def get_stats(num=32):
 
 def get_equipment():
     """calls the api, gets all weapons, and pushes them to the dnd_weapons list as the name of the weapon if the list isn't already populated"""
-
+    weapon_list = ""
+    weapon_list = []
     if len(dnd_weapons) < 5:
         weapons = requests.get('https://www.dnd5eapi.co/api/equipment-categories/weapon').json()
         weapons_results = weapons.get('equipment')
-
-        for weapon in weapons_results:
+        for x in weapons_results:
+            if x['url'] == f"/api/equipment/{x['index']}":
+                weapon_list.append(x)
+        for weapon in weapon_list:
             new_weapon = weapon['name']
             dnd_weapons.append((weapon['index'], new_weapon))
 
 def get_armor():
     """calls the api, gets all armors, and pushes them to the dnd_weapons list as the name of the weapon if the list isn't already populated"""
-
+    equipment_list = ""
+    equipment_list = []
     if len(dnd_armor) < 5:
         equipment = requests.get('https://www.dnd5eapi.co/api/equipment-categories/armor').json()
         equipment_results = equipment.get('equipment')
-
-        for armor in equipment_results:
-            new_armor = armor['name']
-            dnd_armor.append((armor['index'], new_armor))
+        for x in equipment_results:
+            if x['url'] == f"/api/equipment/{x['index']}":
+                equipment_list.append(x)
+        for item in equipment_list:
+            new_x = item['name']
+            dnd_armor.append((item['index'], new_x))
+            
 
 
 def get_items():

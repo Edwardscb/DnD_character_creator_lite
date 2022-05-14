@@ -120,6 +120,9 @@ async function armor_class(armor) {
         newDiv.innerText = base;
         myDiv.append(newDiv);        
     };
+    if (newDiv.innerText = "") {
+        newDiv.innerText = "N/A"
+    }
 
 }
 
