@@ -81,16 +81,16 @@
      <button class="delete-button background submit-button" id="delete_button"></button>
     </form>
     {% else %}
-    <form action="/characters/edit/{{char_id}}">
-        <button class="btn edit-button submit-button" id="edit_button" style="min-height: 50px; min-width: 80px; max-width: 80px"></button>
+</form>
+    <form action="/characters/edit/{{char_id}}" method="GET">
+        <button type="submit" class="btn edit-button submit-button" id="edit_button" style="min-height: 50px; min-width: 80px; max-width: 80px"></button>
     </form>
     <form action="/characters/delete/{{ char_id }}" method="POST">
-        <button class="btn delete-button submit-button" id="delete_button" style="min-height: 80px; min-width: 80px;"></button>
+        <button type="submit" class="btn delete-button submit-button" id="delete_button" style="min-height: 80px; min-width: 80px;"></button>
     </form>
     </div>
     <div class="col-3"></div>
     </div>
-</form>
  {% endif %}
         </div>
         
