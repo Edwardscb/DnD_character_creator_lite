@@ -115,10 +115,10 @@ async function armor_class(armor) {
     if (bonus) {
         myArmor = base + parseInt(new_num);
         newDiv.innerText = myArmor;
-        myDiv.append(newDiv);
+        myDiv.appendChild(newDiv);
     } else {
         newDiv.innerText = base;
-        myDiv.append(newDiv);        
+        myDiv.appendChild(newDiv);        
     };
 
 
