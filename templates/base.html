@@ -7,42 +7,45 @@
     <link rel="stylesheet" href="{{url_for('static', filename='app.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='creationPage.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='character_page.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='media_queries.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}">
+    
     
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body class="content-block">
-    <ul class="navbar-list" id="navbar-list">
+    <ul class="navbar-list btn-group container-fluid" id="navbar-list">
         
-        <li id="home"><a href="/" >Home</a></li>
-        <li id="browse"><a href="/browse" >Browse</a></li>
-        <li class="search" id="search"><a href="">Search</a></li>
+        <li class="btn" id="home"><a href="/" >Home</a></li>
+        <li class="btn" id="browse"><a href="/browse" >Browse</a></li>
+        <li class="btn" id="search"><a href="">Search</a></li>
         {% if g.user %}
-        <li id="create"><a href='/new_character'>Create</a></li>
-        <li style="float:right" id="profile"><a href="/users/{{g.user.id}}">Profile</a></li>
-        <li style="float:right" id="logout"><a href="/logout">Logout</a></li>
+        <li class="btn" id="create"><a href='/new_character'>Create</a></li>
+        <li class="btn" style="float:right" id="profile"><a href="/users/{{g.user.id}}">Profile</a></li>
+        <li class="btn" style="float:right" id="logout"><a href="/logout">Logout</a></li>
         {% else %}
-        <li style="float:right" id="signup"><a href="/signup">Signup</a></li>
-        <li style="float:right" id="login"><a href="/login">Login</a></li>
+        <li class="btn" style="float:right" id="signup"><a href="/signup">Signup</a></li>
+        <li class="btn" style="float:right" id="login"><a href="/login">Login</a></li>
         {% endif %}
     </ul>
+
     {% for message in get_flashed_messages() %}
-    <div class="flash_message" id="flash_message"><h1>{{message}}</h1></div>
+    <div class="flash_message text-center" id="flash_message"><h1>{{message}}</h1></div>
     {% endfor %}
 
     <form action="/search" class="hidden search-form" id="search-form">
     <input type="text" class='hidden search-bar' id='search-bar' name='q' placeholder="Search user or character name"><button type="submit" class="hidden search-button" id="search-button"></button>
         </form>
 
-    {% if g.user %}
-    <div class='div background' style="background-image:url({{g.user.image_url}})"></div>
-    <h1 class="h1"><a href="/users/{{g.user.id}}" class="link-text">{{g.user.username}}</a></h1>
-    {% endif %}
-    {% block content %}
-
-
-    {% endblock %}
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="{{url_for('static', filename='app.js')}}"></script>
-</body>
-</html> 
+        
+        {% block content %}
+        
+        
+        {% endblock %}
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="{{url_for('static', filename='app.js')}}"></script>
+    </body>
+    </html> 
+    <!-- {% if g.user %}
+    <img src="{{g.user.image_url}}" class="rounded float-end position-absolute top-0 end-0 sticky-sm-top sticky-md-top sticky-lg-top sticky-xl-top my-5" style="max-height:200px;">
+    <h1 class="h1 round float-end position-absolute top-50 end-0 my-1 mx-5"><a href="/users/{{g.user.id}}" class="link-text">{{g.user.username}}</a></h1>
+    {% endif %}  -->

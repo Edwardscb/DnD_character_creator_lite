@@ -5,92 +5,98 @@
 {% block title %}New Character{% endblock %}
 
 {% block content %}
-<div class="scroll-div background" id="char_profile_div">
-    <fieldset disabled="disabled">
-    <form method="POST" class="character_form1">
-        
-        
+<form method="POST" class="greeting" style="overflow-y: auto; height: 80vh">
+<div class="container-fluid px-4" id="char_profile_div" style="text-shadow: none; color:aqua" >
+    <fieldset disabled="disabled">   
+    <div class="row gx-5 align-items-center">
+        <div class="col-sm-0 col-xl-1"></div>
+<div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
-
-    <!-- hides csrf token  -->
-    {{ form.hidden_tag() }}
-    {% for field in form if field.widget.input_type != 'hidden' %}
-
-    <!-- shows error messages if there are any  -->
-    {% for error in field.errors %}
-    {% endfor %}
-    {% if field.name == 'character_name' %}{{field}} 
-    {% else %}
-
-    <!-- renders form with character name, gender, race, and class  -->
-    {{field.label(class_=field.name)}} {{field}}
-    {% endif %}
-    {% endfor %}
+    <!-- renders the stats drop-down menus for str, dex, con, int, wis, and cha  -->
     
-
-
-<!-- renders the stats drop-down menus for str, dex, con, int, wis, and cha  -->
-
-        {{form.hidden_tag()}}
-        {% for field in stat_form if field.widget.input_type != 'hidden' %}
-        {% for error in field.errors %}
-        {% endfor %}
-        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
-        {% endfor %}
-
-        
-
-
-
+            {{form.hidden_tag()}}
+            {% for field in stat_form if field.widget.input_type != 'hidden' %}
+            {% for error in field.errors %}
+            {% endfor %}
+            <div class="row">{{field.label(class_=field.name)}} {{field(class_=field.name)}}
+           </div> {% endfor %}
+</div>
+<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
     <!-- renders the equipment drop-down menus for weapons and armor  -->
-    <div class="level">Level = 1</div>
+    <div class="level" style="color:white">Level = 1</div>
 
         {{form.hidden_tag()}}
         {% for field in equipment_form if field.widget.input_type != 'hidden' %}
         {% for error in field.errors %}
         {% endfor %}
-        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        <div class='row text-wrap'>{{field.label(class_=field.name)}} {{field(class_=field.name)}}
+       </div> {% endfor %}
+
+</div>
+<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+    <!-- hides csrf token  -->
+    {{ form.hidden_tag() }}
+    {% for field in form if field.widget.input_type != 'hidden' %}
+
+    <!-- shows error messages if there are any  -->
+
+    <!-- renders form with character name, gender, race, and class  -->
+    <div class='row'>{{field.label(class_=field.name)}} {{field}}</div>
         {% endfor %}
-
-
-
+</div>
+<div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
 
     <!-- renders the items drop-down menus  -->
 
         {{form.hidden_tag()}}
         {% for field in item_form if field.widget.input_type != 'hidden' %}
         {% for error in field.errors %}
+
         {% endfor %}
-        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
+        <div class='row'>{{field.label(class_=field.name)}} {{field(class_=field.name)}}</div>
         {% endfor %}
+        </div>
+        <div class="col-sm-1 col-xl-1"></div>
+        </div>
+        </fieldset>
+        <div class="row">
+            <div class="col" id="strength-div">Strength Modifier</div>
+            <div class="col" id="dexterity-div">Dexterity Modifier</div>
+            <div class="col" id="wisdom-div">Wisdom Modifier</div>
+            <div class="col" id="constitution-div">Constitution Modifier</div>
+            <div class="col" id="intelligence-div">Intelligence Modifier</div>
+            <div class="col" id="charisma-div">Charisma Modifier</div>
+            <div class="col" id="armor_class-div">Armor<br> Class</div>
+            <div class="col" id="proficiency-div">Proficiency Modifier<br> <p class="modifiers">+2</p></div>
+            <div class="col" id="hit_points-div">Hit<br> Points</div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-5"></div>
+            <div class="btn-group col-6 " style="align-items: center;">
+        {% if logged_in_user != char_owner %}
+        <form action="/characters/edit/{{char_id}}" class="hidden">
+     <button class="edit-button background submit-button" id="edit_button"></button>
+ </form>
+ <form action="/characters/delete/{{ char_id }}" class="hidden" method="POST">
+     <button class="delete-button background submit-button" id="delete_button"></button>
+    </form>
+    {% else %}
+    <form action="/characters/edit/{{char_id}}">
+        <button class="btn edit-button submit-button" id="edit_button" style="min-height: 50px; min-width: 80px; max-width: 80px"></button>
+    </form>
+    <form action="/characters/delete/{{ char_id }}" method="POST">
+        <button class="btn delete-button submit-button" id="delete_button" style="min-height: 80px; min-width: 80px;"></button>
+    </form>
+    </div>
+    <div class="col-3"></div>
+    </div>
+</form>
+ {% endif %}
+        </div>
         
-        <div class="strength-div background" id="strength-div"></div>
-        <div class="dexterity-div background" id="dexterity-div"></div>
-        <div class="wisdom-div background" id="wisdom-div"></div>
-        <div class="constitution-div background" id="constitution-div"></div>
-        <div class="intelligence-div background" id="intelligence-div"></div>
-        <div class="charisma-div background" id="charisma-div"></div>
-        <div class="misc1-div background" id="armor_class-div"></div>
-        <div class="misc2-div background" id="proficiency-div"><p class="modifiers">+ 2</p></div>
-        <div class="misc3-div background" id="hit_points-div"></div>
                 
-</form>
-</fieldset>
-   {% if logged_in_user != char_owner %}
-<form action="/characters/edit/{{char_id}}" class="hidden">
-    <button class="edit-button background submit-button" id="edit_button"></button>
-</form>
-<form action="/characters/delete/{{ char_id }}" class="hidden" method="POST">
-    <button class="delete-button background submit-button" id="delete_button"></button>
-</form>
-{% else %}
-<form action="/characters/edit/{{char_id}}">
-    <button class="edit-button background submit-button" id="edit_button"></button>
-</form>
-<form action="/characters/delete/{{ char_id }}" method="POST">
-    <button class="delete-button background submit-button" id="delete_button"></button>
-</form>
-{% endif %}
+
+
  
 
 </div>

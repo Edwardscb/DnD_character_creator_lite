@@ -1,5 +1,5 @@
 const searchBar = document.getElementById('search-bar');
-const searchButton = document.getElementById('search');
+const searchButton = document.getElementById('search-button');
 const search = document.getElementById('search');
 const searchForm = document.getElementById('search-form')
 const char_profile_div = document.getElementById('char_profile_div');
@@ -17,20 +17,20 @@ const browseButton = document.getElementById("browse");
 const flashMessage = document.getElementById('flash_message');
 
 
-window.onload = function() {
-    if (screen.width <= 400) {
-        searchButton.classList.add('hidden');
-        browseButton.classList.add('hidden');
-        welcomeDiv = document.getElementsByClassName("welcome-div");
-        let msg_div = document.createElement('div');
-        msg_div.innerText = "This website is not intended to be used on a mobile device, so it will have limited functionality"
-        msg_div.setAttribute("class", "noMobile");
-        welcomeDiv[0].append(msg_div);
-        if (flashMessage) {
-        flashMessage.classList.add('hidden');
-        };
-    }
-}
+// window.onload = function() {
+//     if (screen.width <= 400) {
+//         searchButton.classList.add('hidden');
+//         browseButton.classList.add('hidden');
+//         welcomeDiv = document.getElementsByClassName("welcome-div");
+//         let msg_div = document.createElement('div');
+//         msg_div.innerText = "This website is not intended to be used on a mobile device, so it will have limited functionality"
+//         msg_div.setAttribute("class", "noMobile");
+//         welcomeDiv[0].append(msg_div);
+//         if (flashMessage) {
+//         flashMessage.classList.add('hidden');
+//         };
+//     }
+// }
 
 
 
@@ -105,7 +105,7 @@ async function armor_class(armor) {
     armor_resp = await axios.get(`${base_url}equipment/${armor.value}`);
     base = armor_resp.data.armor_class['base'];
     bonus = armor_resp.data.armor_class['dex_bonus'];
-    dex_div = dexterity.firstChild.innerText;
+    dex_div = dexterity.firstElementChild.innerText;
     new_num = dex_div.split(' ')[1];
     newDiv = document.createElement('p');
     newDiv.classList = "modifiers";
@@ -128,7 +128,7 @@ async function get_hitpoints(class_name) {
     hit_die = resp.data.hit_die;
     newDiv = document.createElement('p');
     newDiv.classList = 'modifiers';
-    con_div = constitution.firstChild.innerText;
+    con_div = constitution.firstElementChild.innerText;
     new_num = con_div.split(' ')[1];
     console.log(new_num)
     hitpoints = parseInt(new_num) + hit_die;

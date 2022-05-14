@@ -3,14 +3,23 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<form class = 'signup_form' method="POST" id="signup_form">
+<form class = 'signup_form container greeting' style="height: 80vh" method="POST" id="signup_form">
+    <div class="row d-flex">
+        <div class="col-3"></div>
+        <div class="col-6 my-5" style="align-items: center;"><br><br><br>
+       
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}
     {% for error in field.errors %}
     <span class="error_msg">{{error}}</span>
     {% endfor %}
-<div class='login-div'>{{field.label(class_='signup_pw')}} {{field}}</div>
+
+<div class='mb-3'><label for='form-label'>{{field.label(class_='signup_pw')}}</label>
+     {{field(class_='form-control form-control-lg')}}
+    </div>
 {% endfor %}
 <button type="submit" id="submit-button" class="submit-button"></button>
+</div>
+</div>
 </form>
 {% endblock %}

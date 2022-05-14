@@ -5,73 +5,71 @@
 {% block title %}New Character{% endblock %}
 
 {% block content %}
-<div class="scroll-div background">
 
-    <form method="POST" class="character_form">
+<form method="POST" class="greeting">
+<div class="container-fluid px-4">
+    <div class="row gx-5 align-items-center">
+        <div class="col-sm-0 col-xl-1"></div>
         
-
-
-    <!-- hides csrf token  -->
-    {{ form.hidden_tag() }}
-    {% for field in form if field.widget.input_type != 'hidden' %}
-
-    <!-- shows error messages if there are any  -->
-    {% for error in field.errors %}
-    <div class='name-error' style="font-weight: bold; text-decoration: underline; color: red; position:absolute; margin-left: 16%; margin-top: 2%"> {{error}}</div>
-    {% endfor %}
-
-    <!-- renders form with character name, gender, race, and class  -->
-    {{field.label(class_=field.name)}} {{field}}
-    {% endfor %}
-    
-
-
-<!-- renders the stats drop-down menus for str, dex, con, int, wis, and cha  -->
-
-        {{form.hidden_tag()}}
-        {% for field in stat_form if field.widget.input_type != 'hidden' %}
-        {% for error in field.errors %}
-        {% endfor %}
-        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
-        {% endfor %}
-
-
-
-    <!-- renders the equipment drop-down menus for weapons and armor  -->
-    <div class="level">Level = 1</div>
-
-        {{form.hidden_tag()}}
-        {% for field in equipment_form if field.widget.input_type != 'hidden' %}
-        {% for error in field.errors %}
-        {% endfor %}
-        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
-        {% endfor %}
-
-
-
-
-    <!-- renders the items drop-down menus  -->
-
-        {{form.hidden_tag()}}
-        {% for field in item_form if field.widget.input_type != 'hidden' %}
-        {% for error in field.errors %}
-     
-        {% endfor %}
-        {{field.label(class_=field.name)}} {{field(class_=field.name)}}
-        {% endfor %}
-        <div class="witch background">        
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            
+        <!-- renders the stats drop-down menus for str, dex, con, int, wis, and cha  -->
+        
+                {{form.hidden_tag()}}
+                {% for field in stat_form if field.widget.input_type != 'hidden' %}
+                {% for error in field.errors %}
+                {% endfor %}
+                <div class='row'>{{field.label(class_='text-center')}} {{field(class_=field.name)}}</div>
+                {% endfor %}
+            </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            <!-- renders the equipment drop-down menus for weapons and armor  -->
+            <div class="level" style="color:white">Level = 1</div>
+            
+            {{form.hidden_tag()}}
+            {% for field in equipment_form if field.widget.input_type != 'hidden' %}
+            {% for error in field.errors %}
+            {% endfor %}
+            <div class='row text-wrap'>{{field.label(class_='text-center')}} {{field(class_=field.name)}}</div>
+            {% endfor %}
+            
         </div>
-        <div class="red_knight background"></div>
-        <div class="kitten background"></div>
-        <div class="wizard background"></div>
-        <div class="viking background"></div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
+        <!-- hides csrf token  -->
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        
+        <!-- shows error messages if there are any  -->
+        {% for error in field.errors %}
 
+        <div class='name-error' style="font-weight: bold; text-decoration: underline; color: red; position:absolute; margin-left: -12%; margin-top: -2%"> {{error}}</div>
+        {% endfor %}
+        
+        <!-- renders form with character name, gender, race, and class  -->
+        <div class='row'>{{field.label(class_='text-center')}} {{field}}</div>
+        {% endfor %}
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+        
+            <!-- renders the items drop-down menus  -->
+        
+                {{form.hidden_tag()}}
+                {% for field in item_form if field.widget.input_type != 'hidden' %}
+                {% for error in field.errors %}
+             
+                {% endfor %}
+                <div class='row'>{{field.label(class_='text-center')}} {{field(class_=field.name)}}</div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-1 col-xl-2"></div>
+        
+        
+               
+        
+          
 
-       
-
-  
-
-    <!-- <div id="hit-dice" class="hit-dice">Hitpoints: <select  class="default-option" id="default-option"><option>Select Class</option></select></div> -->
+    </div>    
+</div>    
 
 <button type="submit" name="btn" class="submit-button char-submit"></button>
 
@@ -79,5 +77,5 @@
     </form>
  
 
-</div>
+
 {% endblock %}

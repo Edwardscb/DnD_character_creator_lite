@@ -90,18 +90,8 @@
 
 .character_form1 {
 
-    display: grid;
-    grid-template-columns: 100px 100px 100px 260px;
-    grid-auto-columns: 100px;
-    grid-template-rows: 30px; 
-    grid-auto-rows: 30px;
-    gap: 10px;
     font-family: Helvetica;
-    color: rgb(62, 25, 104);
-    margin-top: 8.5%;
-    margin-left: 28%;
-      max-width: 50%;
-    height: 60%;
+    color: aqua;
     z-index: 9;
     
 }

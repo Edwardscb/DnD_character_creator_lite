@@ -3,26 +3,50 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<div class="large-textbox-div background">
+<!-- <div class="large-textbox-div background"> -->
 
+<div class="container-fluid">
 
-<form method="POST" class="profile-page">
+    <div class="row">
+        <div class="col">
 
-    {{ form.hidden_tag() }}
-    {% for field in form if field.widget.input_type != 'hidden' %}
-    {% for error in field.errors %}
-    <span class="error_msg">{{error}}</span>
-    {% endfor %}
-    <div class='{{field.name}}'}}>{{field.label}} {{field}}</div>
-    {% endfor %}
-    <div class="gold_border"><br>Your Characters:<br><ol class="char_list">{% for character in user_chars %}<br><li style="color:white"><a class="link-text" href="/characters/{{character.id}}">{{character.character_name}}</a></li><br><br>{% endfor %}</ol></div>
-    <button type="submit" id="submit-button" class="profile-submit-button submit-button"></button>
-    <form method="POST" action="/users/delete/{{user.id}}">
-    <button type="submit" id="delete-button" class="user-delete profile-delete-button submit-button"></button>
-    </form>
-</form>
+        </div>
+        <div class="col-sm-8 col-md-7 col-lg-7 greeting d-flex align-items-center justify-content-center" style="height: 80vh">
+           
+            <form method="POST" class="">
+                <image class="user_view_image" src="{{user.image_url}}"></image>
+                {{ form.hidden_tag() }}
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                {% for error in field.errors %}
+                <span class="error_msg">{{error}}</span>
+                {% endfor %}
+            
+                <div class='my-3'>
+                    
+                    {{field(class_='form-control form-control-lg', id='floatingInput')}}
+                    <label for='floatingInput'>{{field.label}}</label>
+                </div>
+                {% endfor %}
+            
+                <button type="submit" id="submit-button" class="submit-button btn " style="min-height: 60px;"></button>
+                <form method="POST" action="/users/delete/{{user.id}}">
+                    <button type="submit" id="delete-button" class="user-delete profile-delete-button submit-button btn" style="min-height: 60px;"></button>
+                </form>
+            </form>
+           
+        </div>
+        <div class="col-sm-3">
+            
+                <br><p class="customText" style="text-align: left; color: white;">Your Characters:<ol class="char_list">{% for character in user_chars %}<br><li style="font-size: 18px;color:white;"><a class="" style='width: 100px;' href="/characters/{{character.id}}">{{character.character_name}}</a></li><br><br>{% endfor %}</ol></p>
 
+            </div>
+            
 
-
+        </div>
+        
+    </div>
 </div>
+
+
+
 {% endblock %}
