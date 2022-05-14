@@ -83,6 +83,7 @@ async function race_modifiers(char_race) {
         let ability = document.getElementById(`${base}`);
         let ability_name = ability.id;
         let trunc_ability = ability_name.slice(0, 3);
+
         for (let stat of new_stat) {
             index = stat.ability_score['index'];
             if (index === trunc_ability) {

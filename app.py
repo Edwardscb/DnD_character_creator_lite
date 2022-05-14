@@ -166,7 +166,7 @@ def get_classes():
             jobClass = new_class.get('name')
             dnd_classes.append((jobClass,jobClass))
 
-def get_stats(num=40):
+def get_stats(num=32):
     """function to populate the dnd_stats list, default is 1 to 18, however, option to do more or less depending on user input"""
 
     if len(dnd_stats) < 5:
