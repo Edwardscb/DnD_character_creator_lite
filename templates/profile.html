@@ -27,12 +27,14 @@
                     <label for='floatingInput'>{{field.label}}</label>
                 </div>
                 {% endfor %}
-            
+                <div class="inlinebox">
                 <button type="submit" id="submit-button" class="submit-button btn " style="min-height: 60px;"></button>
-                <form method="POST" action="/users/delete/{{user.id}}">
-                    <button type="submit" id="delete-button" class="user-delete profile-delete-button submit-button btn" style="min-height: 60px;"></button>
                 </form>
-            </form>
+                <form method="POST" action="/users/delete/{{user.id}}">
+                    <button type="submit" id="delete-button" class="user-delete profile-delete-button submit-button btn" style="min-height: 60px; min-width: 150px"></button>
+                </form>
+                </div>
+            
            
         </div>
         <div class="col-sm-3">

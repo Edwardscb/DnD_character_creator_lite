@@ -35,8 +35,6 @@ const flashMessage = document.getElementById('flash_message');
 
 
 
-
-
 search.addEventListener("click", (evt) => {
     //adds an event listener to the search button so that when it is clicked it will remove the hidden class from the bar and allow a user to search users and characters
     evt.preventDefault();
