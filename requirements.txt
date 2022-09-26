@@ -3,7 +3,6 @@ backcall==0.1.0
 bcrypt==3.2.2
 blinker==1.4
 certifi==2021.10.8
-cffi==1.14.3
 charset-normalizer==2.0.12
 Click==7.0
 decorator==4.3.0
@@ -37,3 +36,4 @@ urllib3==1.26.9
 wcwidth==0.1.7
 Werkzeug==0.16.0
 WTForms==2.2.1
+
