@@ -8,10 +8,6 @@ The D&D Character Creator Lite is a website where you can create a user account 
 
 ## Deployed Website
 
-Check it out!  https://dnd-app-zz.herokuapp.com/
-
-The website is hosted by Heroku and the background image and button graphics were created by @upklyak from freepik.com
-
 ## Getting Started:
 ### Create a username and password, optionally you can also add a url to a profile image
 * Your password is encrypted using bcrypt.
